@@ -1,24 +1,64 @@
-import logo from './logo.svg';
 import './App.css';
+import LoginComponent from './components/auth/Login';
+import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import SignupCompnent from './components/auth/Singup';
+import ForgotPassowrd from './components/auth/ForgotPassword';
+import Landing from './components/Landing'
+import Dashboard from './components/dashboard/Dashboard';
+import Positions from './components/dashboard/Positions';
+import Overview from './components/dashboard/Overview';
+import Funds from './components/dashboard/Funds';
+import Orders from './components/dashboard/Orders';
+import { useEffect, useState } from 'react';
+import NoInternetConnection from './components/NoInternet';
 
 function App() {
+
+  const [script, setScript] = useState({
+    symbol: 'RELIANCE',
+    exchange: 'BSE',
+  })
+
+  const changeScript = (e, stock) => {
+    e.preventDefault();
+    setScript({
+      symbol: stock.symbol,
+      exhange: 'BSE',
+    })
+
+
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+    <NoInternetConnection>
+
+
+
+      <BrowserRouter>
+        <Routes>
+          <Route exact path='/' element={<Landing />} />
+          <Route path='/login' element={<LoginComponent />} />
+          <Route path='/signup' element={<SignupCompnent />} />
+          <Route path='/forgotpassword' element={<ForgotPassowrd />} />
+          <Route path='/dashboard' element={<Dashboard changeScript={changeScript} />}>
+
+            <Route exact path='/dashboard/' element={<Overview symbol={script.symbol} />} />
+            <Route path='/dashboard/positions' element={<Positions />} />
+            <Route path='/dashboard/funds' element={<Funds />} />
+            <Route path='/dashboard/orders' element={<Orders />} />
+          </Route>
+
+
+
+
+        </Routes>
+      </BrowserRouter>
+
+    </NoInternetConnection>
+
+
+
   );
 }
 
