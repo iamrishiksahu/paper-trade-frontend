@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Typography, Container, TextField, Box, Button } from '@mui/material';
-import { axiosInstance as axios } from '../../config/axiosConfig';
+import { axiosInstance as axios } from '../../api/axiosConfig';
 import { useNavigate } from 'react-router-dom';
 import { app_logo_url } from '../../config/constants';
 

@@ -11,6 +11,7 @@ import Funds from './components/dashboard/Funds';
 import Orders from './components/dashboard/Orders';
 import { useEffect, useState } from 'react';
 import NoInternetConnection from './components/NoInternet';
+import RequireAuth from './components/RequireAuth';
 
 function App() {
 
@@ -37,16 +38,21 @@ function App() {
 
       <BrowserRouter>
         <Routes>
+          Rahon me main har kadam main tere sath chalas
+
+
           <Route exact path='/' element={<Landing />} />
           <Route path='/login' element={<LoginComponent />} />
           <Route path='/signup' element={<SignupCompnent />} />
           <Route path='/forgotpassword' element={<ForgotPassowrd />} />
-          <Route path='/dashboard' element={<Dashboard changeScript={changeScript} />}>
 
-            <Route exact path='/dashboard/' element={<Overview symbol={script.symbol} />} />
-            <Route path='/dashboard/positions' element={<Positions />} />
-            <Route path='/dashboard/funds' element={<Funds />} />
-            <Route path='/dashboard/orders' element={<Orders />} />
+          <Route element={<RequireAuth />}>
+            <Route path='/dashboard' element={<Dashboard changeScript={changeScript} />}> 
+              <Route exact path='/dashboard/' element={<Overview symbol={script.symbol} />} />
+              <Route path='/dashboard/positions' element={<Positions />} />
+              <Route path='/dashboard/funds' element={<Funds />} />
+              <Route path='/dashboard/orders' element={<Orders />} />
+            </Route>
           </Route>
 
 

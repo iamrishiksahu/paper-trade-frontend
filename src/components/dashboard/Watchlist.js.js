@@ -69,7 +69,7 @@ const Watchlist = (props) => {
         <>
 
             {listOfStocks.map(stock => (
-                <>
+                <div className={'wathlist-item-container'} key={stock.symbol}>
 
                     <Typography
                     onClick={(e)=>props.changeScript(e,stock)}
@@ -81,7 +81,7 @@ const Watchlist = (props) => {
                     </Typography>
                     <Divider />
 
-                </>
+                </div>
             ))}
 
 
