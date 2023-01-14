@@ -4,24 +4,29 @@ import useAuth from './useAuth';
 const useRefreshToken = () => {
     const {setAuth} = useAuth();
 
-    const refresh =  async () => {
-        console.log('refresh is called')
+    const refresh =   () => {
         
-        const response = await axios.get('/auth/refresh', {
+        const response =  axios.get('/auth/refresh', {
             withCredentials: true //allows to send cookies with requests
 
             /**
              *  the issued refresh token is stored in the httpOnly cookie and is not
              * accessible to JS and we never see it. But axios can send it to the server.
              */
+        }).then((res) => {
+            setAuth( (prev) => {                
+                return {...prev, 
+                    accessToken: res?.data?.accessToken,
+                    roles: res?.data?.roles
+                };
+            });
+        }).catch(err => {
+            console.error(err);
         });
 
-        setAuth( prev => {
-            
-            return {...prev, accessToken: response?.data?.accessToken};
-        });
+        
 
-        return response?.data?.accessToken;
+        // return response?.data?.accessToken;
     }
   return refresh;
 }

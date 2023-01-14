@@ -12,6 +12,7 @@ import Orders from './components/dashboard/Orders';
 import { useEffect, useState } from 'react';
 import NoInternetConnection from './components/NoInternet';
 import RequireAuth from './components/RequireAuth';
+import PersistLogin from './components/PersistLogin';
 
 function App() {
 
@@ -38,22 +39,33 @@ function App() {
 
       <BrowserRouter>
         <Routes>
-          Rahon me main har kadam main tere sath chalas
-
-
           <Route exact path='/' element={<Landing />} />
           <Route path='/login' element={<LoginComponent />} />
-          <Route path='/signup' element={<SignupCompnent />} />
+          <Route path='/s ignup' element={<SignupCompnent />} />
           <Route path='/forgotpassword' element={<ForgotPassowrd />} />
 
-          <Route element={<RequireAuth />}>
-            <Route path='/dashboard' element={<Dashboard changeScript={changeScript} />}> 
-              <Route exact path='/dashboard/' element={<Overview symbol={script.symbol} />} />
-              <Route path='/dashboard/positions' element={<Positions />} />
-              <Route path='/dashboard/funds' element={<Funds />} />
-              <Route path='/dashboard/orders' element={<Orders />} />
+
+
+          <Route element={<PersistLogin />} >
+            <Route element={<RequireAuth />}>
+              <Route path='/dashboard' element={<Dashboard changeScript={changeScript} />}>
+                <Route exact path='/dashboard/' element={<Overview symbol={script.symbol} />} />
+                <Route path='/dashboard/positions' element={<Positions />} />
+                <Route path='/dashboard/funds' element={<Funds />} />
+                <Route path='/dashboard/orders' element={<Orders />} />
+              </Route>
             </Route>
+
+            <Route element={<RequireAuth />}>
+
+              <Route path='/test' element={<Orders />} />
+            </Route>
+
           </Route>
+
+          {/**Catch all routes */}
+
+          <Route path='*' element={<p>404 Not found!</p>} />
 
 
 

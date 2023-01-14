@@ -20,8 +20,6 @@ const NoInternetConnection = (props) => {
 
     // if user is online, return the child component else return a custom component
     if(isOnline){
-        console.log('Internet access')
-
     return(
         props.children
     )

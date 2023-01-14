@@ -6,7 +6,8 @@ const RequireAuth = () => {
     const { auth } = useAuth();
     const location = useLocation();
 
-    console.log('user auth status: ', auth);
+    console.log('auth status email: ', auth.email)
+    
 
     return(
         auth?.email 

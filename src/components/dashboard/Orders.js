@@ -18,15 +18,8 @@ const Orders = () => {
 
     try {
 
-      const userInfo = await axiosPrivate.get('/user/accountInfo', {
+      const userInfo = await axiosPrivate.get('/user/accountInfo', {});
 
-      });
-
-      console.log('step 5')
-
-
-
-      console.log(userInfo);
       setUserData(userInfo.data)
 
 
