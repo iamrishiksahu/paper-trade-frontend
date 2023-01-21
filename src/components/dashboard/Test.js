@@ -17,6 +17,36 @@ const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Test() {
+
+  {/**
+  // Working code snippet from dave gray's tutorial
+  
+  useEffect(() => {
+    let isMounted = true;
+    const controller = new AbortController();
+
+    const getFunds = async () => {
+      try{
+        const response = await axiosPrivate.get('/user/funds', {
+          signal: controller.signal
+        });
+        console.log(response.data);
+        isMounted && setFunds(response.data);
+      }catch(err) {console.error(err)}
+    }
+
+    getFunds();
+
+    return () => {
+      isMounted = false;
+      controller.abort();
+    }
+
+  }, [])
+
+   */}
+
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 

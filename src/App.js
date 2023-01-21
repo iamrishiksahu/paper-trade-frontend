@@ -9,10 +9,14 @@ import Positions from './components/dashboard/Positions';
 import Overview from './components/dashboard/Overview';
 import Funds from './components/dashboard/Funds';
 import Orders from './components/dashboard/Orders';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import NoInternetConnection from './components/NoInternet';
 import RequireAuth from './components/RequireAuth';
+import appTheme from './AppTheme';
+import { ThemeProvider } from '@mui/material';
 import PersistLogin from './components/PersistLogin';
+
+
 
 function App() {
 
@@ -23,6 +27,8 @@ function App() {
 
   const changeScript = (e, stock) => {
     e.preventDefault();
+
+
     setScript({
       symbol: stock.symbol,
       exhange: 'BSE',
@@ -33,47 +39,47 @@ function App() {
 
   return (
 
-    <NoInternetConnection>
+    <ThemeProvider theme={appTheme}>
+      <NoInternetConnection>
+        <BrowserRouter>
+          <Routes>
+            <Route exact path='/' element={<Landing />} />
+            <Route path='/login' element={<LoginComponent />} />
+            <Route path='/s ignup' element={<SignupCompnent />} />
+            <Route path='/forgotpassword' element={<ForgotPassowrd />} />
 
 
-
-      <BrowserRouter>
-        <Routes>
-          <Route exact path='/' element={<Landing />} />
-          <Route path='/login' element={<LoginComponent />} />
-          <Route path='/s ignup' element={<SignupCompnent />} />
-          <Route path='/forgotpassword' element={<ForgotPassowrd />} />
-
-
-
-          <Route element={<PersistLogin />} >
-            <Route element={<RequireAuth />}>
-              <Route path='/dashboard' element={<Dashboard changeScript={changeScript} />}>
-                <Route exact path='/dashboard/' element={<Overview symbol={script.symbol} />} />
-                <Route path='/dashboard/positions' element={<Positions />} />
-                <Route path='/dashboard/funds' element={<Funds />} />
-                <Route path='/dashboard/orders' element={<Orders />} />
+            <Route element={<PersistLogin />}>
+              <Route element={<RequireAuth />}>
+                <Route path='/dashboard' element={<Dashboard changeScript={changeScript} />}>
+                  <Route exact path='/dashboard/' element={<Overview symbol={script.symbol} />} />
+                  <Route path='/dashboard/positions' element={<Positions />} />
+                  <Route path='/dashboard/funds' element={<Funds />} />
+                  <Route path='/dashboard/orders' element={<Orders />} />
+                </Route>
               </Route>
+
+              <Route element={<RequireAuth />}>
+
+                <Route path='/test' element={<Orders />} />
+              </Route>
+
             </Route>
 
-            <Route element={<RequireAuth />}>
+            {/**Catch all routes */}
 
-              <Route path='/test' element={<Orders />} />
-            </Route>
-
-          </Route>
-
-          {/**Catch all routes */}
-
-          <Route path='*' element={<p>404 Not found!</p>} />
+            <Route path='*' element={<p>404 Not found!</p>} />
 
 
 
 
-        </Routes>
-      </BrowserRouter>
+          </Routes>
+        </BrowserRouter>
 
-    </NoInternetConnection>
+      </NoInternetConnection>
+
+
+    </ThemeProvider>
 
 
 

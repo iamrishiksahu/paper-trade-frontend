@@ -15,8 +15,11 @@ import AdbIcon from '@mui/icons-material/Adb';
 import Divider from '@mui/material/Divider';
 import { app_logo_url } from '../../config/constants';
 import {useNavigate} from 'react-router-dom'
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { height, styled } from '@mui/system';
 
-const pages = ['Dashboard', 'Orders', 'Positions', 'Funds'];
+const pages = ['Dashboard', 'Orders', 'Positions', 'Funds', 'Theme'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Navbar() {
@@ -25,6 +28,20 @@ function Navbar() {
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const [theme, setTheme] = useState('light-theme');
+
+    const handleThemeChange = () =>{
+        if(theme === 'light-theme'){
+            setTheme('dark-theme');
+        }else{
+            setTheme('light-theme');
+        }
+    }
+
+    useEffect(() => {
+      document.body.className = theme;
+    }, [theme])
+    
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -49,6 +66,9 @@ function Navbar() {
             case 'Funds':
                 navigate('/dashboard/funds');
                 break;
+                case 'Theme':
+                handleThemeChange();
+                break;
         }
     };
 
@@ -57,7 +77,7 @@ function Navbar() {
     };
 
     return (
-        <AppBar position="static" sx={{}} >
+        <StyledAppBar id='navbar_main_container' elevation ={0} position="fixed" >
             <Container maxWidth="xl" sx={{}} >
 
 
@@ -119,8 +139,8 @@ function Navbar() {
                             }}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page} onClick={() => handleCloseNavMenu(page)}>
-                                    <Typography sx={{ textTransform: 'none' }} textAlign="center">{page}</Typography>
+                                <MenuItem sx={{}} key={page} onClick={() => handleCloseNavMenu(page)}>
+                                    <Typography sx={{ textTransform: 'none', color: 'black.text' }} textAlign="center">{page}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -152,7 +172,7 @@ function Navbar() {
 
                                 key={page}
                                 onClick={() => handleCloseNavMenu(page)}
-                                sx={{ my: 2, color: 'white', display: 'block', textTransform: 'none' }}
+                                sx={{ my: 2, color: 'black.text', display: 'block', textTransform: 'none' }}
                             >
                                 {page}
                             </Button>
@@ -194,7 +214,15 @@ function Navbar() {
                     </Box>
                 </Toolbar>
             </Container>
-        </AppBar>
+        </StyledAppBar>
     );
 }
+
+
+const StyledAppBar = styled(AppBar)(({ theme }) => ({
+    backgroundColor: theme.palette.secondary.main,
+    boxShadow: '8px 0px 10px rgba(0,0,0,0.10)',
+    zIndex: '10000'
+}))
+
 export default Navbar;

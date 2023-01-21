@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 
 const DashboardFrame = (props) => {
   return (
-    <Outlet symbol={props.symbol}/>
+    <Outlet sx={{overflowX: 'hidden', zIndex: -100}} symbol={props.symbol}/>
   )
 }
 

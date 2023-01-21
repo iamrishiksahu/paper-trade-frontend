@@ -1,4 +1,4 @@
-import { Divider, Typography } from '@mui/material'
+import { Divider, Typography, Container, Box } from '@mui/material'
 import React from 'react'
 
 const listOfStocks = [
@@ -9,7 +9,6 @@ const listOfStocks = [
         dayPercent: 0.33,
 
     },
-
     {
         symbol: 'MARUTI',
         ltp: 300.45,
@@ -58,6 +57,132 @@ const listOfStocks = [
         exhange: 'NSE',
         dayPercent: 0.33,
 
+    }, ,
+    {
+        symbol: 'ADANIPOWER',
+        ltp: 300.45,
+        exhange: 'NSE',
+        dayPercent: 0.33,
+
+    },
+    {
+        symbol: 'BAJFINANCE',
+        ltp: 300.45,
+        exhange: 'NSE',
+        dayPercent: 0.33,
+
+    },
+    {
+        symbol: 'SUNPHARMA',
+        ltp: 300.45,
+        exhange: 'NSE',
+        dayPercent: 0.33,
+
+    }, ,
+    {
+        symbol: 'ADANIPOWER',
+        ltp: 300.45,
+        exhange: 'NSE',
+        dayPercent: 0.33,
+
+    },
+    {
+        symbol: 'BAJFINANCE',
+        ltp: 300.45,
+        exhange: 'NSE',
+        dayPercent: 0.33,
+
+    },
+    {
+        symbol: 'SUNPHARMA',
+        ltp: 300.45,
+        exhange: 'NSE',
+        dayPercent: 0.33,
+
+    }, ,
+    {
+        symbol: 'ADANIPOWER',
+        ltp: 300.45,
+        exhange: 'NSE',
+        dayPercent: 0.33,
+
+    },
+    {
+        symbol: 'BAJFINANCE',
+        ltp: 300.45,
+        exhange: 'NSE',
+        dayPercent: 0.33,
+
+    },
+    {
+        symbol: 'SUNPHARMA',
+        ltp: 300.45,
+        exhange: 'NSE',
+        dayPercent: 0.33,
+
+    }, ,
+    {
+        symbol: 'ADANIPOWER',
+        ltp: 300.45,
+        exhange: 'NSE',
+        dayPercent: 0.33,
+
+    },
+    {
+        symbol: 'BAJFINANCE',
+        ltp: 300.45,
+        exhange: 'NSE',
+        dayPercent: 0.33,
+
+    },
+    {
+        symbol: 'SUNPHARMA',
+        ltp: 300.45,
+        exhange: 'NSE',
+        dayPercent: 0.33,
+
+    }, ,
+    {
+        symbol: 'ADANIPOWER',
+        ltp: 300.45,
+        exhange: 'NSE',
+        dayPercent: 0.33,
+
+    },
+    {
+        symbol: 'BAJFINANCE',
+        ltp: 300.45,
+        exhange: 'NSE',
+        dayPercent: 0.33,
+
+    },
+    {
+        symbol: 'SUNPHARMA',
+        ltp: 300.45,
+        exhange: 'NSE',
+        dayPercent: 0.33,
+
+    }, ,
+    {
+        symbol: 'ADANIPOWER',
+        ltp: 300.45,
+        exhange: 'NSE',
+        dayPercent: 0.33,
+
+    },
+    {
+        symbol: 'BAJFINANCE',
+        ltp: 300.45,
+        exhange: 'NSE',
+        dayPercent: 0.33,
+
+    },
+    {
+        symbol: 'SUNPHARMA',
+        ltp: 300.45,
+        exhange: 'NSE',
+        dayPercent: 0.33,
+
     },
 ]
 
@@ -67,22 +192,31 @@ const listOfStocks = [
 const Watchlist = (props) => {
     return (
         <>
+            <Container  >
 
-            {listOfStocks.map(stock => (
-                <div className={'wathlist-item-container'} key={stock.symbol}>
-
-                    <Typography
-                    onClick={(e)=>props.changeScript(e,stock)}
-                    sx={{ paddingTop: '8px', paddingBottom: '8px', fontSize: '16px', paddingLeft: '16px', paddingRight: '16px', }} >
+                {listOfStocks?.map((stock, idx) => (
+                    <div key={idx} className={'wathlist-item-container'}>
 
 
-                        {stock.symbol + '\t\t' + stock.exhange + '\t' + stock.ltp}
+                        <Typography
+                            onClick={(e) => props.changeScript(e, stock)}
+                            sx={{ paddingTop: '8px', paddingBottom: '8px', fontSize: '16px', paddingLeft: '16px', paddingRight: '16px', }} >
 
-                    </Typography>
-                    <Divider />
 
-                </div>
-            ))}
+
+                            {stock.symbol + '\t\t' + stock.exhange + '\t' + stock.ltp}
+
+                        </Typography>
+                        <Divider />
+
+
+                    </div>
+                ))}
+                
+               
+
+            </Container>
+
 
 
 

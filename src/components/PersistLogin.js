@@ -3,95 +3,49 @@ import { useState, useEffect } from 'react';
 import useRefreshToken from '../hooks/useRefreshToken';
 import useAuth from '../hooks/useAuth';
 
-
 const PersistLogin = () => {
+
     const [isLoading, setIsLoading] = useState(true);
 
     const refresh = useRefreshToken();
-    const { auth, setAuth } = useAuth();
-    const [didMount, setDidmount] = useState(false);
+    const { auth } = useAuth();
 
-    function verifyRefreshToken() {
-        // try {
+    useEffect( () => {
+        const verifyRefreshToken = async () => {
+            try{
+                await refresh();
 
-             refresh();
-
-        // } catch (err) {
-
-        //     console.error(err);
-
-        // } finally {
-            setIsLoading(false);
-            setDidmount(true);
-
-        // }
-    }
-
-    useEffect(() => {
-
-
-        if(!auth?.accessToken){
-
-            verifyRefreshToken();
-
-        }else{
-            setIsLoading(false);
-            setDidmount(true);
-            
+            }
+            catch(err){
+                console.error(err);
+            }
+            finally{
+                setIsLoading(false);
+            }
         }
 
 
+        if(!auth?.accessToken){
+            verifyRefreshToken();
+        }else{
+            setIsLoading(false);
+        }
 
-
-        // setDidmount(true);
-
-    })
-
-    // useEffect( () => {
-
-        
-    
-       
-
-    // }, []);
+    }, [])
 
     useEffect(() => {
-        console.log(`isLoading  : ${isLoading}`);
-        console.log(`aT: ${JSON.stringify(auth?.accessToken)}`);
-    }, [didMount])
-    
-
-    // useEffect(() => {
-    //     console.log(`isLoading  : ${isLoading}`);
-    //     console.log(`aT: ${JSON.stringify(auth?.accessToken)}`);
-
-        
-    // }, [isLoading]);
-
-
-    if(!didMount) {
-        return(<p>Loading...</p>);
-    }else{
-        
-        return(<Outlet/>)
-       
-    }
-
+        console.log(`isLoading: ${isLoading}`)
+        console.log(`authToken: ${JSON.stringify(auth?.accessToken)}`)
+    }, [isLoading])
 
     return (
-
         <>
-
-
             {isLoading
-                ? <p>Loading...</p>
-                : <Outlet />    
+                ? <p>Loading...</p> 
+                : <Outlet/>
             }
         </>
-
     )
-
-
 }
 
 export default PersistLogin;

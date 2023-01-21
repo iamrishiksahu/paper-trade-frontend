@@ -2,7 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 
 let tvScriptLoadingPromise;
 
+
+
 const ChartFragment = (props) => {
+
+    const check = () => {
+        const a = document.getElementsByClassName('.valueValue-G1_Pfvwd');
+        console.log("elementData: ", a);
+    }
 
     const onLoadScriptRef = useRef();
 
@@ -37,8 +44,6 @@ const ChartFragment = (props) => {
 
         function createWidget() {
 
-            console.log(`chart1: ${config.symbol}`)
-
             if (document.getElementById('tradingview_6628f') && 'TradingView' in window) {
                 console.log(`chart2: ${props.symbol}`)
 
@@ -58,6 +63,7 @@ const ChartFragment = (props) => {
                     allow_symbol_change: true,
                     container_id: "tradingview_6628f"
                 });
+                check();
             }
         }
     },[props]);
