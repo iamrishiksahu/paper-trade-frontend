@@ -1,9 +1,12 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import { useSelector } from "react-redux";
 
 function RequireAuth() {
 
-    const { auth } = useAuth();
+    // const { auth } = useAuth();
+
+    const auth = useSelector((store) => store.authData)
     const location = useLocation();
 
     console.log('auth status email: ', auth.email)

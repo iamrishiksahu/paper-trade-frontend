@@ -1,4 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import {host_url} from '../../app/constants'
 
 let tvScriptLoadingPromise;
 
@@ -6,25 +9,25 @@ let tvScriptLoadingPromise;
 
 const ChartFragment = (props) => {
 
+    const chartData = useSelector((state) => state.chartData);
+    
     const check = () => {
         const a = document.getElementsByClassName('.valueValue-G1_Pfvwd');
-        console.log("elementData: ", a);
     }
 
     const onLoadScriptRef = useRef();
 
-    const config = {
-        exhange: props.exchange,
-        symbol: props.symbol,
-       
-    }
-
+    const navigate = useNavigate();
 
     useEffect(() => {
+
+
+
+        
+       
+
+
         onLoadScriptRef.current = createWidget;
-
-        console.log(`chart1: ${props.symbol}`)
-
 
         if (!tvScriptLoadingPromise) {
             tvScriptLoadingPromise = new Promise((resolve) => {
@@ -45,12 +48,11 @@ const ChartFragment = (props) => {
         function createWidget() {
 
             if (document.getElementById('tradingview_6628f') && 'TradingView' in window) {
-                console.log(`chart2: ${props.symbol}`)
 
                 new window.TradingView.widget({
                     width: "100%",
                     height: "100%",
-                    symbol: `BSE:${props.symbol}`,
+                    symbol: `${(chartData.exchange === ('BSE' || 'NSE'))?chartData.exchange : 'BSE' }:${chartData.symbol}`,
                     interval: "D",
                     timezone: "Asia/Kolkata",
                     theme: "light",
@@ -66,7 +68,7 @@ const ChartFragment = (props) => {
                 check();
             }
         }
-    },[props]);
+    },[chartData]);
 
     return (
         <div className='tradingview-widget-container'>

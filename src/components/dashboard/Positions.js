@@ -10,7 +10,9 @@ import { Typography, Container, Box, Button } from '@mui/material';
 import { styled } from '@mui/system';
 import { useState } from 'react';
 import { useEffect } from 'react';
-
+import { useDispatch, useSelector } from 'react-redux';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import { setPositions, addNewPosition } from '../../features/positions/positionsState';
 
 const rows = [{
   scriptName: 'RELIANCE',
@@ -110,6 +112,38 @@ const Positions = () => {
 
   const [currentValue, setCurrentValue] = useState(0);
   const [totalPnL, setTotalPnL] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+
+
+  const dispatch = useDispatch();
+  const positionData = useSelector((store) => store.positionsData);
+  const axiosp = useAxiosPrivate();
+
+  const fetchAllPositions = async () => {
+
+    let data;
+
+    if (positionData.length != 0) {
+      return
+    }
+
+    try {
+      data = await axiosp.get('/user/positions')
+
+      console.log(data);
+      if (data) {
+        dispatch(setPositions(data.data.positionsList));
+      }
+
+
+    } catch (err) {
+      console.error(err)
+    }
+
+
+    setIsLoading(false);
+  }
+
 
   useEffect(() => {
 
@@ -118,6 +152,12 @@ const Positions = () => {
 
   }, [])
 
+
+  useEffect(() => {
+    setIsLoading(true);
+
+    fetchAllPositions();
+  }, [])
   return (
 
     <Container sx={{ padding: '2rem', display: 'flex', gap: '2rem', flexDirection: 'column' }}>
@@ -125,7 +165,7 @@ const Positions = () => {
       <FlexBox>
 
         <FlexBox sx={{ justifyContent: 'flex-start', width: '50%', }}>
-          <Typography variant='h5'>Positions ({rows.length})</Typography>
+          <Typography variant='h5'>Positions ({positionData?.length})</Typography>
 
 
         </FlexBox>
@@ -153,20 +193,20 @@ const Positions = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {positionData?.map((row) => (
               <TableRow
-                key={row.name}
+                key={row?.scriptName}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {row.scriptName}
+                  {row?.scriptName}
                 </TableCell>
-                <TableCell align="right">{row.qty}</TableCell>
-                <TableCell align="right">{row.avgCost}</TableCell>
-                <TableCell align="right">{row.ltp}</TableCell>
-                <TableCell align="right">{row.ltp * row.qty}</TableCell>
-                <TableCell align="right">{calcPnL(row)}</TableCell>
-                <TableCell align="right">{calcDayChange(row)}</TableCell>
+                <TableCell align="right">{row?.qty}</TableCell>
+                <TableCell align="right">{row?.avgCost}</TableCell>
+                <TableCell align="right">{row?.ltp}</TableCell>
+                <TableCell align="right">{row?.ltp * row?.qty}</TableCell>
+                {/* <TableCell align="right">{calcPnL(row)}</TableCell>
+                <TableCell align="right">{calcDayChange(row)}</TableCell> */}
               </TableRow>
             ))}
           </TableBody>
@@ -180,7 +220,7 @@ const Positions = () => {
         </Box>
         <Box>
           <Typography sx={{ color: 'grey.text' }}>Crruent value</Typography>
-          <Typography variant='h5' sx={{  }}>{currentValue}</Typography>
+          <Typography variant='h5' sx={{}}>{currentValue}</Typography>
         </Box>
         <Box>
 

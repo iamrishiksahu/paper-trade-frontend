@@ -16,22 +16,23 @@ const appTheme = createTheme({
 
     palette: {
         // primary: {
-        //     main: '#000000'
+        //     main: '#000000',
+        //     test: '#ff5722',
         // },
         red: {
             main: '#ff5722',
             dark: '#ff5722',
             medium: '#ff5722',
-            light: '#ff5722',
+            light: '#f7eae6',
         },
         blue: {
             main: '#4184f3',
             dark: '#ff5722',
             medium: '#679df5',
-            light: '#ff5722',
+            light: '#E7EDF9',
         },
         black: {
-            main: '#ff5722',
+            main: '#444',
             dark: '#ff5722',
             medium: '#ff5722',
             light: '#ff5722',

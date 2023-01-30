@@ -10,5 +10,7 @@ const MyComponent = styled('div')({
 });
 
 export default function TestComponent() {
+
+
   return <MyComponent>Styled div</MyComponent>;
 }

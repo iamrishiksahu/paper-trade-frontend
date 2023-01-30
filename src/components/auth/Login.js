@@ -1,50 +1,107 @@
-import React, { useState, useRef, useContext } from 'react'
+import React, { useState, useRef } from 'react'
 import './Login.css'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
-import { Typography, Container, TextField, Box, Button } from '@mui/material';
+import { useNavigate, useLocation, Navigate } from 'react-router-dom'
+import { Typography, Container, TextField, Box, Button, Checkbox, LinearProgress } from '@mui/material';
 import { axiosInstance as axios } from '../../api/axiosConfig';
-import { app_logo_url } from '../../config/constants';
+import { app_logo_url } from '../../app/constants';
 import useAuth from '../../hooks/useAuth';
-import useRefreshToken from '../../hooks/useRefreshToken';
+import { useEffect } from 'react';
+import { setAuthData } from '../../features/auth/authState';
+import { useSelector, useDispatch } from 'react-redux';
 
 
 const LoginComponent = () => {
 
 
-    const { setAuth } = useAuth();
+    const { persist, setPersist } = useAuth();
 
     const location = useLocation();
     const navigate = useNavigate();
     const from = location.state?.from?.pathname || '/dashboard';
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    console.log(from)
+
+    const emailRef = useRef();
+    const passRef = useRef();
+
     const [emailErr, setEmailErr] = useState(false);
     const [passErr, setPassErr] = useState(false);
     const [emailHelper, setEmailHelper] = useState('');
     const [passHelper, setPassHelper] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+
+    const dispatch = useDispatch();
+    const authData = useSelector((state) => state.authData);
 
 
-    const handleLoginClick = (e) => {
+
+
+    const togglePersist = () => {
+        setPersist(prev => !prev);
+    }
+
+    useEffect(() => {
+        console.log('authData: ', authData)
+    }, [authData])
+
+
+    const handleLoginClick = async (e) => {
         e.preventDefault();
 
         setEmailHelper('');
         setPassHelper('');
+        setIsLoading(true);
+
+        const emailVal = emailRef.current.value.toLowerCase().trim();
+        const passwordVal = passRef.current.value.trim();
+
+        // login({ email: emailVal, pass: passwordVal}).then((loginData) => {
+        //     // console.log('data: ', loginData)
+
+        //     if (loginData.data) {
+        //         //login successful, extract data
+        //         const accessToken = loginData?.data?.accessToken;
+        //         const roles = loginData?.data?.roles
+        //         console.log(accessToken, roles)
+        //         dispatch(setAuthData(loginData.data));
+        //         navigate(from, { replace: true });
+        //     }
+
+        //     if (loginData.error) {
+
+        //         const errr = loginData.error;
+
+        //         if (!errr) {
+        //             console.log(errr);
+        //             return alert('Opps! No response received from the server!')
+        //         }
+
+        //         if (errr?.data.message === 'USER_NOT_FOUND') {
+        //             setEmailErr(true);
+        //             setEmailHelper('This email is not registered with us!');
+        //             return
+        //         }
+
+        //         if (errr?.data.message === 'INCORRECT_PASSWORD') {
+        //             setPassErr(true);
+        //             setPassHelper('Password is incorrect!');
+        //             return
+        //         }
+
+
+        //     }
+
+        // });
 
         axios.post('/auth/login', {
-            email: email,
-            password: password
-        }, 
-        { 
+            email: emailVal,
+            password: passwordVal
+        },
+        {
             withCredentials: true // Need to pass it here as well to set the cookies in ress
-        
-        }).then(res => {
 
-            console.log(res);
-            console.log('cookies: ', res.headers)
-            const accessToken = res?.data?.accessToken;
-            const roles = res?.data?.roles
-            setAuth({ email, password, roles, accessToken });
+        }).then(res => {
+            dispatch(setAuthData(res.data));
             navigate(from, { replace: true });
         }).catch((errr) => {
 
@@ -66,10 +123,15 @@ const LoginComponent = () => {
             }
 
             return alert('Internal server error! Please try again later')
+        }).finally(() => {
+            setIsLoading(false);
         })
     }
 
 
+    useEffect(() => {
+        localStorage.setItem('persist', persist);
+    }, [persist])
     return (
         <>
             <Container maxWidth="xs" sx={{
@@ -119,7 +181,8 @@ const LoginComponent = () => {
                             label="Email"
                             name="email"
 
-                            onChange={(e) => { setEmail(e.target.value) }}
+                            inputRef={emailRef}
+                        // onChange={(e) => { setEmail(e.target.value) }}
                         />
                     </Box>
 
@@ -128,7 +191,7 @@ const LoginComponent = () => {
                         marginBottom: '16px',
                     }}>
                         <TextField
-                            onChange={(e) => { setPassword(e.target.value) }}
+                            // onChange={(e) => { setPassword(e.target.value) }}
 
                             onFocus={() => setPassErr(false)}
                             error={passErr}
@@ -139,9 +202,17 @@ const LoginComponent = () => {
                             required={true}
                             id="login-passowrd"
                             label="Password"
+                            inputRef={passRef}
                         />
 
                     </Box>
+
+                    <Box sx={{ display: 'flex', alignItems: 'center', flex: 1, justifyContent: 'center', marginBottom: '1rem' }}>
+
+                        <Checkbox onChange={togglePersist} size='small' sx={{ maxWidth: '10px', marginRight: '0.25rem' }} />
+                        <Typography sx={{ fontSize: '0.75rem' }}>Remember me on this device</Typography>
+                    </Box>
+
 
                     <Button variant='contained' sx={{
                         backgroundColor: '#ff5727',
@@ -161,8 +232,6 @@ const LoginComponent = () => {
                     </Button>
 
                 </form>
-
-
 
                 <Typography
                     sx={{
@@ -196,6 +265,14 @@ const LoginComponent = () => {
                     }}>
                     Create a new account
                 </Typography>
+
+                {isLoading
+                    ? <LinearProgress />
+                    : null
+                    // : (loginRes?.data?.message === 'LOGIN_SUCCESS')
+                    //     ? <Navigate to={from} replace />
+                    //     : <></>
+                }
             </Container>
         </>
     )

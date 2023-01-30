@@ -59,9 +59,32 @@ const Funds = () => {
 
   const [funds, setFunds] = useState({});
 
-  const testFunc = async () => {
-    const res = await axios.post('/test');
-    console.log(res);
+  const withdrawFunds = async () => {
+    const res = await axios.put('/user/funds', {
+      'amount': 434.5,
+      'transaction_type': 'DR'
+    });
+
+    if(res.status === 201){
+      setFunds(res?.data)
+    }else{
+      // handle error in funds addition
+    }
+  
+  }
+
+  const addFunds = async () => {
+    const res = await axios.put('/user/funds', {
+      'amount': 434.57,
+      'transaction_type': 'CR'
+    });
+
+    if(res.status === 201){
+      setFunds(res?.data)
+    }else{
+      // handle error in funds addition
+    }
+  
   }
 
   const getFunds = async () => {
@@ -101,8 +124,8 @@ const Funds = () => {
           <img height={'24 rem'} width={'auto'} src={'https://cdn.icon-icons.com/icons2/2699/PNG/512/upi_logo_icon_169316.png'}></img>
         </div>
 
-        <FundsButton onClick={testFunc} sx={{ backgroundColor: 'green.main', '&:hover': { backgroundColor: 'green.medium' } }}>Add Funds</FundsButton>
-        <FundsButton sx={{ backgroundColor: 'blue.main', '&:hover': { backgroundColor: 'blue.medium' } }}  >Withdraw</FundsButton>
+        <FundsButton onClick={addFunds} sx={{ backgroundColor: 'green.main', '&:hover': { backgroundColor: 'green.medium' } }}>Add Funds</FundsButton>
+        <FundsButton onClick={withdrawFunds} sx={{ backgroundColor: 'blue.main', '&:hover': { backgroundColor: 'blue.medium' } }}  >Withdraw</FundsButton>
 
 
       </FlexBox>

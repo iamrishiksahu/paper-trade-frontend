@@ -13,35 +13,37 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import Divider from '@mui/material/Divider';
-import { app_logo_url } from '../../config/constants';
-import {useNavigate} from 'react-router-dom'
+import { app_logo_url } from '../../app/constants';
+import { useNavigate } from 'react-router-dom'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { height, styled } from '@mui/system';
+import useLogout from '../../hooks/useLogout';
 
-const pages = ['Dashboard', 'Orders', 'Positions', 'Funds', 'Theme'];
+const pages = ['Dashboard', 'Orders', 'Positions', 'Funds'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Navbar() {
 
     const navigate = useNavigate();
+    const logout = useLogout();
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const [theme, setTheme] = useState('light-theme');
 
-    const handleThemeChange = () =>{
-        if(theme === 'light-theme'){
+    const handleThemeChange = () => {
+        if (theme === 'light-theme') {
             setTheme('dark-theme');
-        }else{
+        } else {
             setTheme('light-theme');
         }
     }
 
     useEffect(() => {
-      document.body.className = theme;
+        document.body.className = theme;
     }, [theme])
-    
+
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -53,7 +55,7 @@ function Navbar() {
     const handleCloseNavMenu = (e) => {
         setAnchorElNav(null);
 
-        switch(e) {
+        switch (e) {
             case 'Dashboard':
                 navigate('/dashboard/');
                 break;
@@ -66,18 +68,34 @@ function Navbar() {
             case 'Funds':
                 navigate('/dashboard/funds');
                 break;
-                case 'Theme':
-                handleThemeChange();
-                break;
         }
     };
+
+    const handleSettingClick = async (e) => {
+        setAnchorElUser(null);
+        switch (e) {
+            case 'Profile':
+                break;
+            case 'Account':
+                break;
+            case 'Dashboard':
+                break;
+            case 'Logout':
+                await logout();
+                navigate('/login');
+                break;
+            default:
+
+
+        }
+    }
 
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
 
     return (
-        <StyledAppBar id='navbar_main_container' elevation ={0} position="fixed" >
+        <StyledAppBar id='navbar_main_container' elevation={0} position="fixed" >
             <Container maxWidth="xl" sx={{}} >
 
 
@@ -88,7 +106,7 @@ function Navbar() {
                         margin: 'auto',
                         marginTop: '16px',
                         marginBottom: '16px',
-                        marginRight:'8px',
+                        marginRight: '8px',
 
                     }} src={app_logo_url} />
                     {/* <Typography
@@ -206,7 +224,7 @@ function Navbar() {
                             onClose={handleCloseUserMenu}
                         >
                             {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                <MenuItem onClick={() => handleSettingClick(setting)} key={setting} >
                                     <Typography textAlign="center">{setting}</Typography>
                                 </MenuItem>
                             ))}
