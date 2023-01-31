@@ -5,6 +5,7 @@ import authReducer from '../features/auth/authState'
 import orderReducer from '../features/orders/orderState'
 import orderWindowReducer from '../features/orderWindowState'
 import positionsReducer from '../features/positions/positionsState'
+import watchListReducer from '../features/watchlist/watchlistState'
 
 const store = configureStore({
     reducer: {
@@ -13,6 +14,7 @@ const store = configureStore({
         authData: authReducer,
         ordersData: orderReducer,
         positionsData: positionsReducer,
+        watchListData: watchListReducer,
         
     },
     

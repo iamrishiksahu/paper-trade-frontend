@@ -95,8 +95,12 @@ function Navbar() {
     };
 
     return (
-        <StyledAppBar id='navbar_main_container' elevation={0} position="fixed" >
-            <Container maxWidth="xl" sx={{}} >
+        <StyledAppBar id='navbar_main_container' elevation={0} position="fixed" 
+        style={{
+            // boxSizing: 'border-box'
+    }}
+        >
+            <Container maxWidth="none" style={{paddingLeft: '2rem', paddingRight: '2rem'}} >
 
 
                 <Toolbar disableGutters sx={{}}>

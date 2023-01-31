@@ -20,7 +20,7 @@ const Dashboard = (props) => {
 
     const navElement = document.getElementById('navbar_main_container');
     const contentContainer = document.getElementById('main_content_container');
-    contentContainer.style.marginTop = navElement.offsetHeight + 'px'
+    contentContainer.style.paddingTop = (navElement.offsetHeight) + 'px'
   }, [])
 
   useEffect(() => {
@@ -38,13 +38,13 @@ const Dashboard = (props) => {
         overflowY: 'hidden',
         marginLeft: '2rem',
         marginRight: '2rem',
+        boxSizing: 'border-box',
         boxShadow: '0px 4px 10px rgba(0,0,0,0.08)',
-        minHeight: '91vh',
+        minHeight: '100vh',
       }}>
 
         <div style={{
-          width: '28.6vw',
-          maxHeight: '91vh',
+          width: '30vw',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'flex-end',
@@ -56,40 +56,30 @@ const Dashboard = (props) => {
           <div style={{
             border: '1px solid #e4e4e4',
             borderTop: 'none',
-            overflowY: 'scroll',
+            height: 'inherit',
+            borderBottom: 'none',
+            overflowY: 'auto',
+            maxHeight: '100vh',
+            minHeight: '100vh',
             flex: 1,
-          }} className="watchlist_main">
+          }} id="watchlist_main">
 
 
             <Watchlist />
           </div>
 
-
-          {/* Bottom Box */}
-          <Box sx={{
-            height: '3rem',
-            width: '100%',
-            backgroundColor: 'grey.main',
-            position: 'relative',
-            bottom: '0'
-          }}>
-
-
-          </Box>
-
-
         </div>
 
         <div className="dashboard_frame_main" style={{
-          marginLeft: '30%',
-          width: '70vw'
+          marginLeft: '30vw',
+          width: '70vw',
         }}>
           <DashboardFrame />
 
 
 
         </div>
-          <OrderWindow state={orderWindowState} handleClose={() => dispatch(toggleOrderWindowOpen())} handleClickOpen={() => dispatch(toggleOrderWindowOpen())} />
+        <OrderWindow state={orderWindowState} handleClose={() => dispatch(toggleOrderWindowOpen())} handleClickOpen={() => dispatch(toggleOrderWindowOpen())} />
       </div>
     </>
   )

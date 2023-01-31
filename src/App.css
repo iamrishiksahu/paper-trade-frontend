@@ -48,6 +48,11 @@
 
 }
 
+
+#widget-container{
+  border: none;
+}
+
 .App {
   text-align: center;
 }
