@@ -14,10 +14,13 @@ const OrderWindowContent = (props) => {
     const axios = useAxiosPrivate();
     const dispatch = useDispatch();
 
-    const [orderState, setOrderState] = useState({
-        qty: 1,
-        price: data.ltp
-    });
+    // const [orderState, setOrderState] = useState({
+    //     qty: 1,
+    //     price: data.ltp
+    // });
+
+    const [orderQty, setOrderQty] = useState(1);
+    const [orderPrice, setOrderPrice] = useState(data.ltp);
 
     const FlexBox = styled(Box)(({ theme }) => ({
         display: 'flex',
@@ -40,8 +43,8 @@ const OrderWindowContent = (props) => {
             b = await axios.post('/user/orders', {
                 payload: {
                     scriptName: data.scriptName,
-                    qty: orderState.qty,
-                    avgCost: orderState.price,
+                    qty: orderQty,
+                    avgCost: orderPrice,
                     orderStatus: 'ACTIVE',
                     transactionType: data.transactionType,
                     orderType: 'LIMIT'
@@ -67,7 +70,7 @@ const OrderWindowContent = (props) => {
                 <Typography variant='span' sx={{ fontWeight: 700 }}>{data.transactionType}</Typography>
                 <Typography variant='span' sx={{ fontWeight: 600 }}>{data.scriptName}</Typography>
                 <Typography variant='span' sx={{ fontWeight: 600 }}>{data.exchange}</Typography>
-                <Typography variant='span' sx={{ fontWeight: 600 }}>x{orderState?.qty} Qty</Typography>
+                <Typography variant='span' sx={{ fontWeight: 600 }}>x{orderQty} Qty</Typography>
                 {/* <Typography variant='span'>{instrument.transactionType}</Typography> */}
             </FlexBox>
 
@@ -76,19 +79,20 @@ const OrderWindowContent = (props) => {
                     required
                     id="order-qty"
                     label="Qty"
-                    autoFocus='autofocus'// to prevent focus losing onChange
-                    onChange={(e) => setOrderState({ ...orderState, qty: e.target.value })}
-                    value={orderState?.qty}
+                    // autoFocus='autofocus'// to prevent focus losing onChange
                     type='number'
                     size='small'
+                    value={orderQty}
+                    onChange={(e) => setOrderQty(e.target.value)}
                 />
                 <TextField
+                
                     required
                     id="order-price"
                     label="Price"
-                    autoFocus='autoFocus' // to prevent focus losing onChange
-                    onChange={(e) => setOrderState({ ...orderState, price: e.target.value })}
-                    value={orderState?.price}
+                    // autoFocus='autoFocus' // to prevent focus losing onChange
+                    onChange={(e) => setOrderPrice(e.target.value)}
+                    value={orderPrice}
                     type='number'
                     size='small'
                 />
@@ -99,7 +103,7 @@ const OrderWindowContent = (props) => {
 
                 <Box sx={{ gap: '0.25rem' }}>
                     <Typography variant='span' sx={{ color: 'black.text' }}>Margin </Typography>
-                    <Typography variant='span' sx={{ color: 'blue.main' }}>₹{Math.round((orderState?.qty * orderState?.price) * 100) / 100}</Typography>
+                    <Typography variant='span' sx={{ color: 'blue.main' }}>₹{Math.round((orderQty * orderPrice) * 100) / 100}</Typography>
                 </Box>
 
                 <Button onClick={placeOrderAction} variant='contained' size='small' sx={{ height: '2rem', backgroundColor: colorTheme }}>{data.transactionType}</Button>

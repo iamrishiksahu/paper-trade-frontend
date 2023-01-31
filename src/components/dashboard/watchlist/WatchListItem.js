@@ -44,7 +44,7 @@ const HoverToolbar = (props) => {
     }
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'right', width: '23rem', marginTop: '-2.25rem', }}>
+        <div style={{ display: 'flex', justifyContent: 'right', width: 'inherit', marginTop: '0', maxHeight: '1rem', paddingTop: '0.25rem' }}>
             <IconButton color="blue" aria-label="buy quantity" onClick={(e) => handleItemIconClicked('BUY', e)}>
                 <AddBoxOutlined />
             </IconButton>
@@ -65,17 +65,12 @@ const HoverToolbar = (props) => {
 
 const WatchListItem = (props) => {
 
-
     const [isHovering, setIsHovering] = useState(false);
-
-
 
     const handleHover = () => {
         setIsHovering(prev => !prev);
     }
-    useEffect(() => {
 
-    }, [isHovering])
 
     return (
         <div key={props.idx} className={'wathlist-item-container'}
@@ -90,10 +85,15 @@ const WatchListItem = (props) => {
                     <Typography >{props.stock.scriptName}</Typography>
                     <Typography sx={{ fontSize: '0.75rem' }} >{props.stock.exchange}</Typography>
                 </Box>
-                <Typography>{props.stock.ltp}</Typography>
+
+                {isHovering
+                    ? <HoverToolbar item={props.stock} />
+                    : <Typography>{props.stock.ltp}</Typography>
+                }
+                
             </Box>
 
-            {isHovering && <HoverToolbar item={props.stock} />}
+            
 
 
             <Divider />
