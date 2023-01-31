@@ -30,7 +30,7 @@ const HoverToolbar = (props) => {
                 dispatch(toggleOrderWindowOpen({ transactionType: 'SELL', scriptName: props.item.scriptName, ltp: props.item.ltp, exchange: props.item.exchange }))
                 break;
             case 'CHART':
-                if((host_url + 'dashboard') != window.location.href){
+                if ((host_url + 'dashboard') != window.location.href) {
                     navigate('/dashboard')
                 }
                 dispatch(scriptChange({ symbol: props.item.scriptName, exchange: 'BSE' }))
@@ -44,7 +44,7 @@ const HoverToolbar = (props) => {
     }
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'right', width: 'inherit', marginTop: '0', maxHeight: '1rem', paddingTop: '0.25rem' }}>
+        <div style={{ display: 'flex', maxHeight: '1rem', paddingTop: '0.25rem' }}>
             <IconButton color="blue" aria-label="buy quantity" onClick={(e) => handleItemIconClicked('BUY', e)}>
                 <AddBoxOutlined />
             </IconButton>
@@ -78,7 +78,7 @@ const WatchListItem = (props) => {
             onMouseOver={handleHover} onMouseOut={handleHover}>
 
 
-            <Box sx={{ paddingTop: '8px', paddingBottom: '8px', fontSize: '16px', paddingLeft: '16px', paddingRight: '16px', display: 'flex', justifyContent: 'space-between' }} >
+            <Box sx={{ paddingY: '0.5rem', fontSize: '16px', paddingX: '1rem', display: 'flex', justifyContent: 'space-between' }} >
 
                 <Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
 
@@ -90,10 +90,10 @@ const WatchListItem = (props) => {
                     ? <HoverToolbar item={props.stock} />
                     : <Typography>{props.stock.ltp}</Typography>
                 }
-                
+
             </Box>
 
-            
+
 
 
             <Divider />
