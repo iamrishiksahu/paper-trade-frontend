@@ -11,7 +11,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import Divider from '@mui/material/Divider';
 import { app_logo_url } from '../../app/constants';
 import { useNavigate } from 'react-router-dom'
@@ -106,13 +105,13 @@ function Navbar() {
                 <Toolbar disableGutters sx={{}}>
 
                     <img alt="logo" style={{
-                        maxWidth: '32px',
+                        maxWidth: '24px',
                         margin: 'auto',
                         marginTop: '16px',
                         marginBottom: '16px',
                         marginRight: '8px',
 
-                    }} src={app_logo_url} />
+                    }} src='/logo192.png' />
                     {/* <Typography
                         variant="h6"
                         noWrap

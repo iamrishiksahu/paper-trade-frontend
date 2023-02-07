@@ -3,7 +3,6 @@ import './Login.css'
 import { useNavigate, useLocation, Navigate } from 'react-router-dom'
 import { Typography, Container, TextField, Box, Button, Checkbox, LinearProgress } from '@mui/material';
 import { axiosInstance as axios } from '../../api/axiosConfig';
-import { app_logo_url } from '../../app/constants';
 import useAuth from '../../hooks/useAuth';
 import { useEffect } from 'react';
 import { setAuthData } from '../../features/auth/authState';
@@ -146,12 +145,12 @@ const LoginComponent = () => {
             }}>
 
                 <img alt="logo" style={{
-                    maxWidth: '64px',
+                    maxWidth: '3rem',
                     margin: 'auto',
                     marginTop: '32px',
                     marginBottom: '16px',
 
-                }} src={app_logo_url} />
+                }} src='/logo192.png' />
 
                 <Typography sx={{
                     fontSize: '20px',

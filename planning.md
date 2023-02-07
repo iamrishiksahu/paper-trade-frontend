@@ -5,3 +5,5 @@
 # TODO:
 
 1. Correct the inaccurate working of remember me checkbox. Issue is due to the default value initiating automatically from AuthProvider
+
+2. Work on signup fundtion

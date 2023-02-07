@@ -14,11 +14,6 @@ const OrderWindowContent = (props) => {
     const axios = useAxiosPrivate();
     const dispatch = useDispatch();
 
-    // const [orderState, setOrderState] = useState({
-    //     qty: 1,
-    //     price: data.ltp
-    // });
-
     const [orderQty, setOrderQty] = useState(1);
     const [orderPrice, setOrderPrice] = useState(data.ltp);
 

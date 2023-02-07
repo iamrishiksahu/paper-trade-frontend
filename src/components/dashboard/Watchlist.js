@@ -3,7 +3,7 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setWatchlist } from '../../features/watchlist/watchlistState'
+import { setWatchlist, addNewWatchListItem } from '../../features/watchlist/watchlistState'
 import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 import WatchListItem from './watchlist/WatchListItem'
 import SearchIcon from '@mui/icons-material/Search';
@@ -277,6 +277,30 @@ const Watchlist = (props) => {
     }, [])
 
 
+    const addWatchListItem = async () =>{
+
+
+
+        const payload = {
+            scriptName: 'HINDUNILVR',
+            ltp: 2634.85,
+            exchange: 'BSE',
+            tradingAllowed: true,
+
+        }
+        const data = await axios.post('/user/watchlist', {
+            payload
+        });
+
+        if(data.status === 201){
+            dispatch(addNewWatchListItem(payload));
+        }
+
+        console.log(data);
+
+
+    }
+
     return (
         <>
             <Box sx={{ padding: 0 }} >
@@ -305,9 +329,9 @@ const Watchlist = (props) => {
 
                 </Box>
 
-                {/* 
-                <Button onClick={test} >Test</Button>
-                <Button onClick={abc} >getQuotes</Button> */}
+               
+                {/* <Button onClick={addWatchListItem} >Test</Button> {/*  */}
+                {/* <Button onClick={abc} >getQuotes</Button> */} */}
 
 
                 

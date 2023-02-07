@@ -1,7 +1,6 @@
 import React from 'react'
 import { Typography, Container, TextField, Box, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { app_logo_url } from '../../app/constants';
 
 const SignupCompnent = () => {
     const navigate = useNavigate();
@@ -38,7 +37,7 @@ const SignupCompnent = () => {
                     marginTop: '16px',
                     marginBottom: '16px',
 
-                }} src={app_logo_url} />
+                }} src='/logo192.png' />
 
 
                 <Typography sx={{
