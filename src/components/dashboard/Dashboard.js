@@ -38,7 +38,7 @@ const Dashboard = (props) => {
         overflowY: 'hidden',
         marginLeft: '2rem',
         marginRight: '2rem',
-        boxSizing: 'border-box',
+        boxSizing: 'border-box', 
         boxShadow: '0px 4px 10px rgba(0,0,0,0.08)',
         minHeight: '100vh',
       }}>

@@ -92,6 +92,7 @@ const LoginComponent = () => {
 
         // });
 
+
         axios.post('/auth/login', {
             email: emailVal,
             password: passwordVal
@@ -100,6 +101,7 @@ const LoginComponent = () => {
             withCredentials: true // Need to pass it here as well to set the cookies in ress
 
         }).then(res => {
+            console.log(res.data)
             dispatch(setAuthData(res.data));
             navigate(from, { replace: true });
         }).catch((errr) => {

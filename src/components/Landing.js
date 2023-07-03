@@ -4,6 +4,7 @@ import { app_logo_url } from '../app/constants';
 import Navbar from './dashboard/Navbar';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useNavigate } from 'react-router-dom';
+import './Landing.css'
 
 const Landing = () => {
 
@@ -15,10 +16,23 @@ const Landing = () => {
     justifyContent: 'center',
     alignItems: 'center',
     gap: '1rem',
+
+    [theme.breakpoints.down("sm")]: {
+      marginRight: '1rem',
+      marginLeft: '1rem',
+
+    }
+    
   }))
 
-  const RowFlex = styled(ColFlex)(({ theme }) => ({
-    flexDirection: 'row'
+  const RowFlex = styled(Box)(({ theme }) => ({
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '1rem',
+
+
   }))
 
 
@@ -61,22 +75,13 @@ const Landing = () => {
       {/* DEMO IMAGE SECTION */}
 
       <ColFlex>
-        <img src={require('../resources/demonstration-bg.png')}
-          style={{
-            maxWidth: '50rem',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            border: '1px solid #ebebeb',
-            borderRadius: '1rem',
-            boxShadow: '0 0 20px #e9e9e9',
-          }}
-        ></img>
+        <img className='demo-image' src={require('../resources/demonstration-bg.png')} />
       </ColFlex>
 
       {/* FEATURES SECTION */}
 
 
-      <RowFlex sx={{ marginX: '12rem', marginY: '5rem' }}>
+      <RowFlex className='rfx' sx={{ marginX: '12rem', marginY: '5rem'}}>
 
         <ColFlex sx={{
           width: '50%',

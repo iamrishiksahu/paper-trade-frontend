@@ -94,11 +94,7 @@ function Navbar() {
     };
 
     return (
-        <StyledAppBar id='navbar_main_container' elevation={0} position="fixed" 
-        style={{
-            // boxSizing: 'border-box'
-    }}
-        >
+        <StyledAppBar id='navbar_main_container' elevation={0} position="fixed" >
             <Container maxWidth="none" style={{paddingLeft: '2rem', paddingRight: '2rem'}} >
 
 
@@ -112,23 +108,6 @@ function Navbar() {
                         marginRight: '8px',
 
                     }} src='/logo192.png' />
-                    {/* <Typography
-                        variant="h6"
-                        noWrap
-                        component="a"
-                        href="/"
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'none', md: 'flex' },
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
-                    >
-                        LOGO
-                    </Typography> */}
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton

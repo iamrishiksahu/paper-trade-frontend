@@ -26,8 +26,10 @@ const PersistLogin = () => {
         }
 
         if(!auth?.accessToken){
+            console.log('auth nahi hai')
             verifyRefreshToken();
         }else{
+            console.log('auth  hai')
             isMounted && setIsLoading(false);
         }
 

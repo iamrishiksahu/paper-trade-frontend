@@ -9,6 +9,7 @@ import { scriptChange } from '../../../features/overview/chartFeatures'
 import { toggleOrderWindowOpen } from '../../../features/orderWindowState'
 import { useNavigate } from 'react-router-dom'
 import { host_url } from '../../../app/constants'
+import PopupToolbar from './PopupToolbar'
 
 const HoverToolbar = (props) => {
 
@@ -36,7 +37,8 @@ const HoverToolbar = (props) => {
                 dispatch(scriptChange({ symbol: props.item.scriptName, exchange: 'BSE' }))
                 break;
             case 'DELETE':
-                alert(`Deleting ${props.item.symbol}`)
+                // alert(`Deleting ${props.item.symbol}`)
+                props.deleteItem({data: props.item})
                 break;
             default:
                 break;
@@ -65,17 +67,14 @@ const HoverToolbar = (props) => {
 
 const WatchListItem = (props) => {
 
-    const [isHovering, setIsHovering] = useState(false);
-
-    const handleHover = () => {
-        setIsHovering(prev => !prev);
-    }
-
+    const [showToolbar, setShowToolbar] = useState(false)
 
     return (
         <div key={props.idx} className={'wathlist-item-container'}
             style={{ maxHeight: '2.5rem' }}
-            onMouseOver={handleHover} onMouseOut={handleHover}>
+            onMouseOver={() => setShowToolbar(true)}
+            onMouseOut={() => setShowToolbar(false)}
+            >
 
 
             <Box sx={{ paddingY: '0.5rem', fontSize: '16px', paddingX: '1rem', display: 'flex', justifyContent: 'space-between' }} >
@@ -86,8 +85,8 @@ const WatchListItem = (props) => {
                     <Typography sx={{ fontSize: '0.75rem' }} >{props.stock.exchange}</Typography>
                 </Box>
 
-                {isHovering
-                    ? <HoverToolbar item={props.stock} />
+                {showToolbar
+                    ? <HoverToolbar deleteItem = {props.deleteItem} item={props.stock} />
                     : <Typography>{props.stock.ltp}</Typography>
                 }
 

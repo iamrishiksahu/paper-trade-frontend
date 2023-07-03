@@ -9,7 +9,7 @@ function RequireAuth() {
     const auth = useSelector((store) => store.authData)
     const location = useLocation();
 
-    console.log('auth status email: ', auth.email)
+    console.log('requiredauth.js me auth: ', auth)
     
     if(auth){
     return(

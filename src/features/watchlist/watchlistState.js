@@ -16,6 +16,13 @@ export const watchListSlice = createSlice({
         },
         addNewWatchListItem: (state, action) => {
             state.push(action.payload)
+        },
+        delteWatchListItem: (state, action) => {
+            let idx = state.indexOf(action.item);
+            if(idx > -1){
+                state.splice(idx, 1)
+            }
+
         }
     }
 })

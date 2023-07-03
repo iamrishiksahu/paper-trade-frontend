@@ -256,6 +256,7 @@ const Watchlist = (props) => {
 
 
 
+
     const fetchWatchlist = async () => {
         try {
             const response = await axios.get('/user/watchlist');
@@ -264,6 +265,18 @@ const Watchlist = (props) => {
             console.error(err);
         }
 
+    }
+
+    const deleteWatchlistItem = async ({data}) => {
+        try{
+            // const response = await axios.delete('/user/watchlist', {
+
+            // })
+            dispatch(deleteWatchlistItem({item: data}))
+
+        } catch(err){
+            console.error(err)
+        }
     }
 
 
@@ -275,6 +288,7 @@ const Watchlist = (props) => {
 
         fetchWatchlist();
     }, [])
+
 
 
     const addWatchListItem = async () =>{
@@ -321,7 +335,7 @@ const Watchlist = (props) => {
                     {
 
                         watchlistData.length != 0 ? watchlistData.map((stock, idx) => (
-                            <WatchListItem stock={stock} idx={idx} />
+                            <WatchListItem deleteItem={deleteWatchlistItem} stock={stock} idx={idx} />
                         )) : <Typography sx={{ paddingY: '4rem' }} align='center'>Add items to watchlist!</Typography>
                     }
                     <Divider color='#e4e4e4' />

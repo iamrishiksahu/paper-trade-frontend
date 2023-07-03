@@ -31,7 +31,7 @@ function App() {
 
               <Route exact path='/' element={<Landing />} />
               <Route path='/login' element={<LoginComponent />} />
-              <Route path='/s ignup' element={<SignupCompnent />} />
+              <Route path='/signup' element={<SignupCompnent />} />
               <Route path='/forgotpassword' element={<ForgotPassowrd />} />
               <Route element={<PersistLogin />}>
                 <Route element={<RequireAuth />}>
